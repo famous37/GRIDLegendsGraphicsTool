@@ -73,7 +73,7 @@ fun HomeScreen(
 
     val shizukuOp = remember { ShizukuFileOperator(context, shizukuManager) }
     val rootOp = remember { RootFileOperator(rootManager) }
-    // 保存找到的配置文件路径和内容
+    // 保存找到的Configuration file路径和内容
     var foundConfigPath by remember { mutableStateOf<String?>(null) }
     var foundConfigContent by remember { mutableStateOf<String?>(null) }
 
@@ -86,7 +86,7 @@ fun HomeScreen(
             if (granted) {
                 shizukuStatus = ShizukuStatus.READY
             } else {
-                Toast.makeText(context, "Shizuku 授权被拒绝", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Shizuku authorization被拒绝", Toast.LENGTH_SHORT).show()
             }
         }
         onDispose {
@@ -94,7 +94,7 @@ fun HomeScreen(
         }
     }
 
-    // 检查配置文件
+    // 检查Configuration file
     LaunchedEffect(accessMode, shizukuStatus, rootStatus, safAuthorized) {
         Log.d("GLGraphics", "HomeScreen: 检查配置 accessMode=$accessMode, shizukuStatus=$shizukuStatus, rootStatus=$rootStatus, safAuthorized=$safAuthorized")
         foundConfigPath = null
@@ -152,7 +152,7 @@ fun HomeScreen(
         }
     }
 
-    // 判断是否已就绪（可以进入编辑）
+    // 判断是否Ready（可以进入编辑）
     val isReady = when (accessMode) {
         AccessMode.ROOT -> rootStatus == RootStatus.READY && configFound
         AccessMode.SHIZUKU -> shizukuStatus == ShizukuStatus.READY && configFound
@@ -180,7 +180,7 @@ fun HomeScreen(
                 color = NeonCyan
             )
             Text(
-                text = "画质助手",
+                text = "Graphics Tool",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Medium,
                 color = TextPrimary
@@ -200,26 +200,26 @@ fun HomeScreen(
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Text(
-                    text = "从预设制作画质文件",
+                    text = "Create graphics file from preset",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "无需授权游戏目录，制作后通过系统文件保存器选择保存位置。",
+                text = "No game-folder access required. Choose where to save the file after creating it.",
                 color = TextSecondary,
                 fontSize = 13.sp,
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(32.dp))
 
-            // 游戏安装状态
+            // Game installation
             StatusCard(
-                title = "游戏安装状态",
+                title = "Game installation",
                 isOk = isGameInstalled,
-                okText = "已检测到游戏",
-                failText = "未检测到游戏，请先安装 GRID Legends"
+                okText = "Game detected",
+                failText = "Game not detected. Install GRID Legends first."
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -235,10 +235,10 @@ fun HomeScreen(
                 if (rootStatus == RootStatus.READY) {
                     Spacer(modifier = Modifier.height(16.dp))
                     StatusCard(
-                        title = "配置文件",
+                        title = "Configuration file",
                         isOk = configFound,
-                        okText = "已找到配置文件",
-                        failText = "未找到配置文件，请确认游戏已运行过至少一次"
+                        okText = "已找到Configuration file",
+                        failText = "未找到Configuration file，请确认游戏已运行过至少一次"
                     )
 
                     if (!configFound) {
@@ -258,7 +258,7 @@ fun HomeScreen(
                             ),
                             shape = RoundedCornerShape(8.dp)
                         ) {
-                            Text(text = "扫描游戏目录（Root 调试）", fontSize = 14.sp)
+                            Text(text = "Scan game folder (Root diagnostics)", fontSize = 14.sp)
                         }
                         if (diagText.isNotEmpty()) {
                             Spacer(modifier = Modifier.height(8.dp))
@@ -301,7 +301,7 @@ fun HomeScreen(
                         shape = RoundedCornerShape(12.dp)
                     ) {
                         Text(
-                            text = "进入画质编辑",
+                            text = "Open graphics editor",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -318,7 +318,7 @@ fun HomeScreen(
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = AccentOrange),
                     shape = RoundedCornerShape(8.dp)
                 ) {
-                    Text(text = "改用 Shizuku", fontSize = 14.sp)
+                    Text(text = "Switch to Shizuku", fontSize = 14.sp)
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -328,7 +328,7 @@ fun HomeScreen(
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = TextSecondary),
                     shape = RoundedCornerShape(8.dp)
                 ) {
-                    Text(text = "改用系统文件夹授权", fontSize = 14.sp)
+                    Text(text = "Use system folder access", fontSize = 14.sp)
                 }
             } else if (useShizuku) {
                 // ===== Shizuku 模式 (Android 16+) =====
@@ -342,13 +342,13 @@ fun HomeScreen(
                 if (shizukuStatus == ShizukuStatus.READY) {
                     Spacer(modifier = Modifier.height(16.dp))
                     StatusCard(
-                        title = "配置文件",
+                        title = "Configuration file",
                         isOk = configFound,
-                        okText = "已找到配置文件",
-                        failText = "未找到配置文件，请确认游戏已运行过至少一次"
+                        okText = "已找到Configuration file",
+                        failText = "未找到Configuration file，请确认游戏已运行过至少一次"
                     )
 
-                    // 未找到配置文件时显示诊断
+                    // 未找到Configuration file时显示诊断
                     if (!configFound) {
                         Spacer(modifier = Modifier.height(12.dp))
                         var diagText by remember { mutableStateOf("") }
@@ -357,7 +357,7 @@ fun HomeScreen(
                         OutlinedButton(
                             onClick = {
                                 isDiagLoading = true
-                                diagText = "正在扫描..."
+                                diagText = "Scanning..."
                                 try {
                                     diagText = shizukuOp.diagnose()
                                 } catch (e: Exception) {
@@ -372,7 +372,7 @@ fun HomeScreen(
                             ),
                             shape = RoundedCornerShape(8.dp)
                         ) {
-                            Text(text = "扫描游戏目录（调试）", fontSize = 14.sp)
+                            Text(text = "Scan game folder (diagnostics)", fontSize = 14.sp)
                         }
 
                         if (diagText.isNotEmpty()) {
@@ -405,7 +405,7 @@ fun HomeScreen(
                             ),
                             shape = RoundedCornerShape(8.dp)
                         ) {
-                            Text(text = if (showLogs) "隐藏日志" else "查看运行日志 (${logBuffer.size}条)", fontSize = 14.sp)
+                            Text(text = if (showLogs) "Hide logs" else "View logs (${logBuffer.size} entries)", fontSize = 14.sp)
                         }
                         if (showLogs && logBuffer.isNotEmpty()) {
                             Spacer(modifier = Modifier.height(8.dp))
@@ -433,7 +433,7 @@ fun HomeScreen(
                 if (shizukuStatus == ShizukuStatus.NOT_INSTALLED) {
                     // 提示安装 Shizuku
                     Text(
-                        text = "请先安装 Shizuku 应用\n可在 Google Play 或 GitHub 获取",
+                        text = "Install Shizuku first.\nAvailable on Google Play or GitHub.",
                         fontSize = 13.sp,
                         color = TextSecondary,
                         textAlign = TextAlign.Center
@@ -460,7 +460,7 @@ fun HomeScreen(
                         shape = RoundedCornerShape(12.dp)
                     ) {
                         Text(
-                            text = "进入画质编辑",
+                            text = "Open graphics editor",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -477,7 +477,7 @@ fun HomeScreen(
                         ),
                         shape = RoundedCornerShape(8.dp)
                     ) {
-                        Text(text = "改用系统文件夹授权", fontSize = 14.sp)
+                        Text(text = "Use system folder access", fontSize = 14.sp)
                     }
                 }
 
@@ -491,24 +491,24 @@ fun HomeScreen(
                     ),
                     shape = RoundedCornerShape(8.dp)
                 ) {
-                    Text(text = "使用 Root 权限访问", fontSize = 14.sp)
+                    Text(text = "Use Root access", fontSize = 14.sp)
                 }
             } else {
                 // ===== SAF 模式 (Android 15 及以下) =====
                 StatusCard(
-                    title = "配置目录授权",
+                    title = "Configuration folder access",
                     isOk = safAuthorized,
-                    okText = "已授权访问",
-                    failText = "需要授权访问游戏配置目录"
+                    okText = "Access granted",
+                    failText = "Access to the game configuration folder is required"
                 )
 
                 if (safAuthorized) {
                     Spacer(modifier = Modifier.height(16.dp))
                     StatusCard(
-                        title = "配置文件",
+                        title = "Configuration file",
                         isOk = configFound,
-                        okText = "已找到配置文件",
-                        failText = "未找到配置文件，请确认游戏已运行过至少一次"
+                        okText = "已找到Configuration file",
+                        failText = "未找到Configuration file，请确认游戏已运行过至少一次"
                     )
                 }
 
@@ -536,7 +536,7 @@ fun HomeScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "授权访问游戏目录",
+                            text = "Grant game folder access",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -545,7 +545,7 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = "点击后在弹出的文件选择器中选择：\nAndroid/data/com.feralinteractive.gridlegends_android",
+                        text = "In the file picker, select:\nAndroid/data/com.feralinteractive.gridlegends_android",
                         fontSize = 12.sp,
                         color = TextSecondary,
                         textAlign = TextAlign.Center
@@ -570,13 +570,13 @@ fun HomeScreen(
                         shape = RoundedCornerShape(12.dp)
                     ) {
                         Text(
-                            text = "进入画质编辑",
+                            text = "Open graphics editor",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
                     }
                 } else {
-                    // 已授权但没找到配置文件
+                    // 已授权但没找到Configuration file
                     OutlinedButton(
                         onClick = {
                             safLauncher.launch(safManager.createOpenDocumentTreeIntent())
@@ -589,7 +589,7 @@ fun HomeScreen(
                         ),
                         shape = RoundedCornerShape(12.dp)
                     ) {
-                        Text(text = "重新授权目录", fontSize = 16.sp)
+                        Text(text = "Grant folder access again", fontSize = 16.sp)
                     }
                 }
 
@@ -608,7 +608,7 @@ fun HomeScreen(
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Text(
-                            text = "无法选择文件夹？改用 Shizuku",
+                            text = "无法选择文件夹？Switch to Shizuku",
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -616,7 +616,7 @@ fun HomeScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Android 14/15 如果提示“无法使用此文件夹”，请返回后使用 Shizuku 方式访问。",
+                        text = "On Android 14/15, if the folder is blocked, go back and use Shizuku.",
                         fontSize = 12.sp,
                         color = TextSecondary,
                         textAlign = TextAlign.Center
@@ -634,7 +634,7 @@ fun HomeScreen(
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(
-                        text = "已有 Root？使用 Root 权限访问",
+                        text = "已有 Root？Use Root access",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -643,7 +643,7 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // 关于按钮
+            // About按钮
             TextButton(
                 onClick = onAbout,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -656,7 +656,7 @@ fun HomeScreen(
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = "关于",
+                    text = "About",
                     fontSize = 14.sp,
                     color = TextSecondary
                 )
@@ -697,16 +697,16 @@ private fun RootStatusCard(
                 Spacer(modifier = Modifier.width(16.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "Root 权限",
+                        text = "Root access",
                         fontSize = 14.sp,
                         color = TextSecondary
                     )
                     Text(
                         text = when (status) {
-                            RootStatus.UNKNOWN -> "未检测"
-                            RootStatus.NOT_AVAILABLE -> "未检测到 su"
-                            RootStatus.NOT_AUTHORIZED -> "未授权或被拒绝"
-                            RootStatus.READY -> "已就绪"
+                            RootStatus.UNKNOWN -> "Not detected"
+                            RootStatus.NOT_AVAILABLE -> "Not detected到 su"
+                            RootStatus.NOT_AUTHORIZED -> "Not authorized or denied"
+                            RootStatus.READY -> "Ready"
                         },
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
@@ -726,11 +726,11 @@ private fun RootStatusCard(
                     ),
                     shape = RoundedCornerShape(8.dp)
                 ) {
-                    Text(text = "检测并授权 Root", fontWeight = FontWeight.Bold)
+                    Text(text = "Check and authorize Root", fontWeight = FontWeight.Bold)
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "点击后请在 Magisk、KernelSU 或 APatch 等管理器中允许授权。",
+                    text = "Allow access in Magisk, KernelSU, APatch, or your root manager.",
                     fontSize = 12.sp,
                     color = TextSecondary
                 )
@@ -774,16 +774,16 @@ private fun ShizukuStatusCard(
                 Spacer(modifier = Modifier.width(16.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "Shizuku 授权",
+                        text = "Shizuku authorization",
                         fontSize = 14.sp,
                         color = TextSecondary
                     )
                     Text(
                         text = when (status) {
-                            ShizukuStatus.NOT_INSTALLED -> "未安装 Shizuku"
-                            ShizukuStatus.NOT_RUNNING -> "Shizuku 服务未启动"
-                            ShizukuStatus.NOT_AUTHORIZED -> "等待授权"
-                            ShizukuStatus.READY -> "已就绪"
+                            ShizukuStatus.NOT_INSTALLED -> "Shizuku not installed"
+                            ShizukuStatus.NOT_RUNNING -> "Shizuku service not running"
+                            ShizukuStatus.NOT_AUTHORIZED -> "Awaiting authorization"
+                            ShizukuStatus.READY -> "Ready"
                         },
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
@@ -804,14 +804,14 @@ private fun ShizukuStatusCard(
                     ),
                     shape = RoundedCornerShape(8.dp)
                 ) {
-                    Text(text = "授权 Shizuku", fontWeight = FontWeight.Bold)
+                    Text(text = "Authorize Shizuku", fontWeight = FontWeight.Bold)
                 }
             }
 
             if (status == ShizukuStatus.NOT_RUNNING) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "请打开 Shizuku 应用并启动服务",
+                    text = "Open Shizuku and start its service",
                     fontSize = 12.sp,
                     color = TextSecondary
                 )
