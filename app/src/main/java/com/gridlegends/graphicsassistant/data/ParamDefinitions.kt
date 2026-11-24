@@ -5,8 +5,8 @@ object ParamDefinitions {
     val allParams: List<GraphicsParam> = listOf(
         GraphicsParam(
             key = "FramerateLimit",
-            displayName = "当前帧率上限",
-            description = "限制游戏目标帧率。更高帧率更流畅，但会增加发热和耗电。",
+            displayName = "Frame rate limit",
+            description = "Limits target FPS. Higher FPS improves smoothness but increases heat and power consumption.",
             controlType = ParamControlType.RADIO_GROUP,
             section = ParamSection.DISPLAY,
             options = mapOf(
@@ -21,8 +21,8 @@ object ParamDefinitions {
         ),
         GraphicsParam(
             key = "Setup/FixedScreenHeight",
-            displayName = "渲染分辨率高度",
-            description = "真实配置位于 Setup/FixedScreenHeight，数值越高越清晰也越吃性能。",
+            displayName = "Render resolution height",
+            description = "Uses Setup/FixedScreenHeight. Higher values improve clarity but reduce performance.",
             controlType = ParamControlType.SLIDER,
             section = ParamSection.DISPLAY,
             minValue = 360f,
@@ -32,8 +32,8 @@ object ParamDefinitions {
         ),
         GraphicsParam(
             key = "Graphics/FrameSizeMinimumPercentage",
-            displayName = "动态分辨率下限",
-            description = "Graphics 档位里的 FrameSizeMinimumPercentage，影响动态分辨率最低比例。",
+            displayName = "Dynamic resolution minimum",
+            description = "Graphics/FrameSizeMinimumPercentage sets the minimum dynamic render scale.",
             controlType = ParamControlType.SLIDER,
             section = ParamSection.DISPLAY,
             minValue = 30f,
@@ -43,8 +43,8 @@ object ParamDefinitions {
         ),
         GraphicsParam(
             key = "Graphics/FrameSizeMaximumPercentage",
-            displayName = "动态分辨率上限",
-            description = "Graphics 档位里的 FrameSizeMaximumPercentage，影响动态分辨率最高比例。",
+            displayName = "Dynamic resolution maximum",
+            description = "Graphics/FrameSizeMaximumPercentage sets the maximum dynamic render scale.",
             controlType = ParamControlType.SLIDER,
             section = ParamSection.DISPLAY,
             minValue = 40f,
@@ -54,16 +54,16 @@ object ParamDefinitions {
         ),
         GraphicsParam(
             key = "DynamicResolution",
-            displayName = "当前动态分辨率",
-            description = "根据负载自动调整渲染比例。关闭后画面更稳定，但性能压力更高。",
+            displayName = "Dynamic resolution",
+            description = "Automatically adjusts render scale under load. Disabling it stabilizes resolution but requires more GPU power.",
             controlType = ParamControlType.RADIO_GROUP,
             section = ParamSection.DISPLAY,
             options = levelOptions(includeZero = true)
         ),
         GraphicsParam(
             key = "Graphics/OptimisationResolutionMultiplier",
-            displayName = "渲染分辨率倍率",
-            description = "控制 Graphics 档位的内部渲染倍率。数值越低性能越高，画面越模糊。",
+            displayName = "Render scale",
+            description = "Internal render scale. Lower values improve performance but reduce image sharpness.",
             controlType = ParamControlType.SLIDER,
             section = ParamSection.DISPLAY,
             minValue = 40f,
@@ -73,8 +73,8 @@ object ParamDefinitions {
         ),
         GraphicsParam(
             key = "VerticalSync",
-            displayName = "垂直同步",
-            description = "使帧率与屏幕刷新率同步，可减少画面撕裂。",
+            displayName = "Vertical sync (V-Sync)",
+            description = "Synchronizes frames with the display to reduce tearing.",
             controlType = ParamControlType.SWITCH,
             section = ParamSection.DISPLAY,
             options = switchOptions()
@@ -82,7 +82,7 @@ object ParamDefinitions {
         GraphicsParam(
             key = "HDR",
             displayName = "HDR",
-            description = "仅在屏幕和系统支持 HDR 时启用。",
+            description = "Enable only if your display and system support HDR.",
             controlType = ParamControlType.SWITCH,
             section = ParamSection.DISPLAY,
             options = switchOptions()
@@ -90,64 +90,64 @@ object ParamDefinitions {
 
         GraphicsParam(
             key = "TextureQuality",
-            displayName = "当前纹理质量",
-            description = "影响车辆、赛道和环境贴图清晰度。高档位需要更多显存。",
+            displayName = "Texture quality",
+            description = "Controls vehicle, track, and environment texture detail. Higher settings require more graphics memory.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.QUALITY,
-            options = mapOf("1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            options = mapOf("1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "AntiAliasing",
-            displayName = "当前抗锯齿",
-            description = "降低画面边缘锯齿。更高档位画面更平滑，也会增加性能开销。",
+            displayName = "Anti-aliasing",
+            description = "Smooths jagged edges. Higher settings increase GPU load.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.QUALITY,
-            options = mapOf("1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            options = mapOf("1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "Shadows",
-            displayName = "当前阴影",
-            description = "当前配置中的阴影等级。高为 3，极高为 4。",
+            displayName = "Shadow quality",
+            description = "Shadow quality level: High = 3, Ultra = 4.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.QUALITY,
-            options = mapOf("1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            options = mapOf("1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "LODQuality",
-            displayName = "当前细节距离",
-            description = "当前配置中的 LOD 等级。高为 3，极高为 4。",
+            displayName = "Level of detail (LOD)",
+            description = "LOD level: High = 3, Ultra = 4.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.QUALITY,
-            options = mapOf("1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            options = mapOf("1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "GroundCover",
-            displayName = "当前地面植被",
-            description = "控制赛道周边草地和地表细节。关闭可明显降低场景负载。",
+            displayName = "Ground vegetation",
+            description = "Controls grass and ground detail near tracks. Disabling reduces GPU load.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.QUALITY,
             options = levelOptions(includeZero = true)
         ),
         GraphicsParam(
             key = "Crowds",
-            displayName = "当前观众",
-            description = "观众数量。低帧率/低配预设通常为 0。",
+            displayName = "Spectators",
+            description = "Spectator density. Low-end presets typically use 0.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.QUALITY,
-            options = mapOf("0" to "关闭", "1" to "开启")
+            options = mapOf("0" to "Off", "1" to "On")
         ),
         GraphicsParam(
             key = "AmbientOcclusion",
-            displayName = "环境光遮蔽",
-            description = "增强物体接触处和缝隙的阴影细节。",
+            displayName = "Ambient occlusion",
+            description = "Enhances contact shadows and crevice detail.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.QUALITY,
             options = levelOptions(includeZero = false)
         ),
         GraphicsParam(
             key = "LightingQuality",
-            displayName = "光照质量",
-            description = "控制场景光照的精细程度。",
+            displayName = "Lighting quality",
+            description = "Controls scene lighting detail.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.REFLECTIONS,
             options = levelOptions(includeZero = false)
@@ -155,64 +155,64 @@ object ParamDefinitions {
 
         GraphicsParam(
             key = "PostProcess",
-            displayName = "当前后处理",
-            description = "当前后处理等级。高为 3，极高为 4。",
+            displayName = "Post-processing quality",
+            description = "Post-processing quality: High = 3, Ultra = 4.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.POST_PROCESSING,
-            options = mapOf("0" to "关闭", "1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            options = mapOf("0" to "Off", "1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "MotionBlur",
-            displayName = "当前动态模糊",
-            description = "高速运动时的模糊效果。提高会增强速度感，也可能降低画面清晰度。",
+            displayName = "Motion blur",
+            description = "Blur during fast motion; may reduce image clarity.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.POST_PROCESSING,
-            options = mapOf("1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            options = mapOf("1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "Setup/EnableSSR",
-            displayName = "SSR 反射开关",
-            description = "控制屏幕空间反射。开启后车身和湿地反射更明显，性能开销较高。",
+            displayName = "Screen-space reflections (SSR)",
+            description = "Enables reflections on vehicles and wet surfaces at a performance cost.",
             controlType = ParamControlType.RADIO_GROUP,
             section = ParamSection.POST_PROCESSING,
-            options = mapOf("0" to "关", "3" to "高", "4" to "极高")
+            options = mapOf("0" to "Off", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "Setup/EnableVolumetrics",
-            displayName = "体积光开关",
-            description = "真实配置位于 Setup/EnableVolumetrics。0 关闭，3 高，4 极高。",
+            displayName = "Volumetric lighting toggle",
+            description = "Uses Setup/EnableVolumetrics: 0 = Off, 3 = High, 4 = Ultra.",
             controlType = ParamControlType.RADIO_GROUP,
             section = ParamSection.POST_PROCESSING,
-            options = mapOf("0" to "关", "1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            options = mapOf("0" to "Off", "1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "VolumetricLights",
-            displayName = "当前体积光",
-            description = "当前配置中的体积光等级。",
+            displayName = "Volumetric lighting quality",
+            description = "Current volumetric lighting level.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.POST_PROCESSING,
-            options = mapOf("1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            options = mapOf("1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "FireworksAndConfetti",
-            displayName = "烟花彩纸",
-            description = "控制烟花和彩纸等赛后特效强度。提高会增加粒子效果负载。",
+            displayName = "Fireworks and confetti",
+            description = "Controls fireworks and confetti effects after races.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.POST_PROCESSING,
-            options = mapOf("1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            options = mapOf("1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "Particles",
-            displayName = "粒子效果",
-            description = "控制烟尘、火花等粒子效果的质量。",
+            displayName = "Particle effects",
+            description = "Controls smoke, dust, sparks, and other particles.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.POST_PROCESSING,
             options = levelOptions(includeZero = true)
         ),
         GraphicsParam(
             key = "WeatherEffects",
-            displayName = "天气效果",
-            description = "控制雨雪等天气特效的质量。",
+            displayName = "Weather effects",
+            description = "Controls rain, snow, and other weather effects.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.POST_PROCESSING,
             options = levelOptions(includeZero = false)
@@ -220,32 +220,32 @@ object ParamDefinitions {
 
         GraphicsParam(
             key = "ScreenSpaceReflections",
-            displayName = "当前屏幕空间反射",
-            description = "当前配置中的反射等级。",
+            displayName = "Screen-space reflection quality",
+            description = "Current reflection quality level.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.REFLECTIONS,
-            options = mapOf("1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            options = mapOf("1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "VehicleReflections",
-            displayName = "当前车辆反射",
-            description = "当前配置中的车辆反射等级。",
+            displayName = "Vehicle reflections",
+            description = "Current vehicle reflection quality.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.REFLECTIONS,
-            options = mapOf("1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            options = mapOf("1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "SmokeShadows",
-            displayName = "当前烟雾阴影",
-            description = "当前配置中的烟雾阴影等级。",
+            displayName = "Smoke shadows",
+            description = "Current smoke shadow quality.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.REFLECTIONS,
-            options = mapOf("1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            options = mapOf("1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         ),
         GraphicsParam(
             key = "Mirrors",
-            displayName = "后视镜",
-            description = "控制车辆后视镜的渲染质量。",
+            displayName = "Rear-view mirrors",
+            description = "Controls rear-view mirror rendering quality.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.REFLECTIONS,
             options = levelOptions(includeZero = true)
@@ -253,40 +253,40 @@ object ParamDefinitions {
 
         GraphicsParam(
             key = "PresetOverride",
-            displayName = "覆盖游戏预设",
-            description = "让自定义画质参数优先生效。若修改后不生效，可尝试开启。",
+            displayName = "Override game preset",
+            description = "Prioritizes custom settings over the game's preset. Enable if changes do not take effect.",
             controlType = ParamControlType.SWITCH,
             section = ParamSection.DETAIL,
             options = switchOptions()
         ),
         GraphicsParam(
             key = "DevicePreset",
-            displayName = "设备预设等级",
-            description = "影响游戏选择的基础设备档位。高档位可能解锁更多画质项。",
+            displayName = "Device preset tier",
+            description = "Sets the device quality tier; higher tiers may unlock additional graphics options.",
             controlType = ParamControlType.RADIO_GROUP,
             section = ParamSection.DETAIL,
-            options = mapOf("0" to "默认", "1" to "高")
+            options = mapOf("0" to "Default", "1" to "High")
         ),
         GraphicsParam(
             key = "Setup/EnableEdgeBlurOnQuarterRes",
-            displayName = "低分辨率边缘模糊",
-            description = "低分辨率渲染时的边缘柔化效果。关闭后画面更锐，但锯齿可能更明显。",
+            displayName = "Low-resolution edge smoothing",
+            description = "Softens edges at low render resolution. Disabling sharpens the image but may increase aliasing.",
             controlType = ParamControlType.SWITCH,
             section = ParamSection.DETAIL,
             options = switchOptions()
         ),
         GraphicsParam(
             key = "Skidmarks",
-            displayName = "轮胎印记",
-            description = "控制赛道上轮胎印记的显示质量。",
+            displayName = "Tyre marks",
+            description = "Controls tyre marks on the track.",
             controlType = ParamControlType.LEVEL_SELECTOR,
             section = ParamSection.DETAIL,
             options = levelOptions(includeZero = false)
         ),
         GraphicsParam(
             key = "ReduceVisibleRain",
-            displayName = "减少可见雨水",
-            description = "减少画面中的可见雨水效果以降低性能负载。",
+            displayName = "Reduce visible rain",
+            description = "Reduces visible rain effects to improve performance.",
             controlType = ParamControlType.SWITCH,
             section = ParamSection.POST_PROCESSING,
             options = switchOptions()
@@ -301,13 +301,13 @@ object ParamDefinitions {
         return allParams.find { it.key == key }
     }
 
-    private fun switchOptions() = mapOf("0" to "关", "1" to "开")
+    private fun switchOptions() = mapOf("0" to "Off", "1" to "On")
 
     private fun levelOptions(includeZero: Boolean): Map<String, String> {
         return if (includeZero) {
-            mapOf("0" to "关", "1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            mapOf("0" to "Off", "1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         } else {
-            mapOf("1" to "低", "2" to "中", "3" to "高", "4" to "极高")
+            mapOf("1" to "Low", "2" to "Medium", "3" to "High", "4" to "Ultra")
         }
     }
 }
