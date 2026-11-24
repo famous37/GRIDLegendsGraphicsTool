@@ -85,7 +85,7 @@ fun PresetLibraryScreen(
         containerColor = DarkBackground,
         topBar = {
             TopAppBar(
-                title = { Text("选择Graphics presets") },
+                title = { Text("Select graphics presets") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
