@@ -86,7 +86,7 @@ fun HomeScreen(
             if (granted) {
                 shizukuStatus = ShizukuStatus.READY
             } else {
-                Toast.makeText(context, "Shizuku authorization被拒绝", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Shizuku authorization denied", Toast.LENGTH_SHORT).show()
             }
         }
         onDispose {
@@ -96,7 +96,7 @@ fun HomeScreen(
 
     // 检查Configuration file
     LaunchedEffect(accessMode, shizukuStatus, rootStatus, safAuthorized) {
-        Log.d("GLGraphics", "HomeScreen: 检查配置 accessMode=$accessMode, shizukuStatus=$shizukuStatus, rootStatus=$rootStatus, safAuthorized=$safAuthorized")
+        Log.d("GLGraphics", "HomeScreen: Check configuration accessMode=$accessMode, shizukuStatus=$shizukuStatus, rootStatus=$rootStatus, safAuthorized=$safAuthorized")
         foundConfigPath = null
         foundConfigContent = null
         when (accessMode) {
@@ -106,7 +106,7 @@ fun HomeScreen(
                 foundConfigPath = found
                 if (found != null) {
                     foundConfigContent = rootOp.readFile(found)
-                    Log.d("GLGraphics", "HomeScreen: root readFile -> ${foundConfigContent?.length ?: "null"} 字符")
+                    Log.d("GLGraphics", "HomeScreen: root readFile -> ${foundConfigContent?.length ?: "null"} characters")
                     configFound = foundConfigContent != null
                 } else {
                     configFound = false
@@ -120,7 +120,7 @@ fun HomeScreen(
                 foundConfigPath = found
                 if (found != null) {
                     foundConfigContent = shizukuOp.readFile(found)
-                    Log.d("GLGraphics", "HomeScreen: readFile -> ${foundConfigContent?.length ?: "null"} 字符")
+                    Log.d("GLGraphics", "HomeScreen: readFile -> ${foundConfigContent?.length ?: "null"} characters")
                     configFound = foundConfigContent != null
                 } else {
                     configFound = false
@@ -237,8 +237,8 @@ fun HomeScreen(
                     StatusCard(
                         title = "Configuration file",
                         isOk = configFound,
-                        okText = "已找到Configuration file",
-                        failText = "未找到Configuration file，请确认游戏已运行过至少一次"
+                        okText = "Configuration file found",
+                        failText = "Configuration not found. Launch the game at least once."
                     )
 
                     if (!configFound) {
@@ -249,7 +249,7 @@ fun HomeScreen(
                                 diagText = try {
                                     rootOp.diagnose()
                                 } catch (e: Exception) {
-                                    "诊断失败: ${e.message}"
+                                    "Diagnostics failed: ${e.message}"
                                 }
                             },
                             modifier = Modifier.fillMaxWidth(),
@@ -344,11 +344,11 @@ fun HomeScreen(
                     StatusCard(
                         title = "Configuration file",
                         isOk = configFound,
-                        okText = "已找到Configuration file",
-                        failText = "未找到Configuration file，请确认游戏已运行过至少一次"
+                        okText = "Configuration file found",
+                        failText = "Configuration not found. Launch the game at least once."
                     )
 
-                    // 未找到Configuration file时显示诊断
+                    // Configuration file not found时显示诊断
                     if (!configFound) {
                         Spacer(modifier = Modifier.height(12.dp))
                         var diagText by remember { mutableStateOf("") }
@@ -361,7 +361,7 @@ fun HomeScreen(
                                 try {
                                     diagText = shizukuOp.diagnose()
                                 } catch (e: Exception) {
-                                    diagText = "诊断失败: ${e.message}"
+                                    diagText = "Diagnostics failed: ${e.message}"
                                 } finally {
                                     isDiagLoading = false
                                 }
@@ -507,8 +507,8 @@ fun HomeScreen(
                     StatusCard(
                         title = "Configuration file",
                         isOk = configFound,
-                        okText = "已找到Configuration file",
-                        failText = "未找到Configuration file，请确认游戏已运行过至少一次"
+                        okText = "Configuration file found",
+                        failText = "Configuration not found. Launch the game at least once."
                     )
                 }
 
@@ -608,7 +608,7 @@ fun HomeScreen(
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Text(
-                            text = "无法选择文件夹？Switch to Shizuku",
+                            text = "Can't select folder? Switch to Shizuku",
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -634,7 +634,7 @@ fun HomeScreen(
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(
-                        text = "已有 Root？Use Root access",
+                        text = "Have Root? Use Root access",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -704,7 +704,7 @@ private fun RootStatusCard(
                     Text(
                         text = when (status) {
                             RootStatus.UNKNOWN -> "Not detected"
-                            RootStatus.NOT_AVAILABLE -> "Not detected到 su"
+                            RootStatus.NOT_AVAILABLE -> "su not detected"
                             RootStatus.NOT_AUTHORIZED -> "Not authorized or denied"
                             RootStatus.READY -> "Ready"
                         },
