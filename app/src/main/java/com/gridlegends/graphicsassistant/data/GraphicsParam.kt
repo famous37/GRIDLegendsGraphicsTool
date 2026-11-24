@@ -23,11 +23,11 @@ data class GraphicsParam(
 )
 
 enum class ParamSection(val title: String, val icon: String) {
-    DISPLAY("显示与帧率", "显示"),
-    QUALITY("画面质量", "画质"),
-    POST_PROCESSING("后处理效果", "后期"),
-    REFLECTIONS("反射与光照", "反射"),
-    DETAIL("细节与高级", "细节")
+    DISPLAY("Display and frame rate", "Display"),
+    QUALITY("Graphics quality", "Quality"),
+    POST_PROCESSING("Post-processing", "Effects"),
+    REFLECTIONS("Reflections and lighting", "Reflections"),
+    DETAIL("Details and advanced", "Details")
 }
 
 data class ParamValue(
