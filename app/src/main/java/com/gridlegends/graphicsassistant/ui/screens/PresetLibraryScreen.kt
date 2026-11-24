@@ -72,7 +72,7 @@ fun PresetLibraryScreen(
         PresetCatalog.all.forEach { metadata ->
             repository.load(metadata).fold(
                 onSuccess = { loaded[metadata.id] = it },
-                onFailure = { errors[metadata.id] = it.message ?: "无法读取预设" }
+                onFailure = { errors[metadata.id] = it.message ?: "Unable to load presets" }
             )
         }
 
@@ -85,12 +85,12 @@ fun PresetLibraryScreen(
         containerColor = DarkBackground,
         topBar = {
             TopAppBar(
-                title = { Text("选择画质预设") },
+                title = { Text("选择Graphics presets") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "返回"
+                            contentDescription = "Back"
                         )
                     }
                 },
@@ -111,7 +111,7 @@ fun PresetLibraryScreen(
         ) {
             item {
                 Text(
-                    text = "无需授权游戏目录。选择一个真实配置作为基础，修改后导出完整 preferences，并保留预设文件中的其他设置。",
+                    text = "No game-folder access needed. Select a bundled configuration, adjust it, and export a complete preferences file while preserving other settings.",
                     color = TextSecondary,
                     fontSize = 14.sp,
                     modifier = Modifier.padding(4.dp)
@@ -179,14 +179,14 @@ private fun PresetLibraryCard(
                 Spacer(modifier = Modifier.height(10.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     PresetTag("${summary.renderHeight}p")
-                    PresetTag("${summary.frameRate} 帧")
+                    PresetTag("${summary.frameRate} FPS")
                     if (summary.hdrEnabled) PresetTag("HDR", AccentOrange)
                 }
             }
 
             error?.let {
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("预设不可用：$it", color = WarningRed, fontSize = 12.sp)
+                Text("Preset unavailable: $it", color = WarningRed, fontSize = 12.sp)
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -199,7 +199,7 @@ private fun PresetLibraryCard(
                     contentColor = DarkBackground
                 )
             ) {
-                Text("基于此预设编辑", fontWeight = FontWeight.Bold)
+                Text("Edit this preset", fontWeight = FontWeight.Bold)
             }
         }
     }
