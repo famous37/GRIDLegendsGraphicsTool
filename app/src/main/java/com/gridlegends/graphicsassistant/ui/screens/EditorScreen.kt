@@ -38,7 +38,7 @@ import com.gridlegends.graphicsassistant.ui.components.*
 import com.gridlegends.graphicsassistant.ui.theme.*
 
 /**
- * 画质编辑主界面（支持 Root、Shizuku 和 SAF 三种模式）
+ * Graphics editor主界面（支持 Root、Shizuku 和 SAF 三种模式）
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -79,24 +79,24 @@ fun EditorScreen(
             val snapshot = currentSession?.pendingExportSnapshot
             if (bytes == null || snapshot == null) {
                 sessionStore.updateSession(sourceKey) { it.cancelExport() }
-                Toast.makeText(context, "导出状态已丢失，请重新导出", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Export session lost. Please export again.", Toast.LENGTH_LONG).show()
             } else {
                 try {
                     context.contentResolver.openOutputStream(uri, "wt")?.use { output ->
                         output.write(bytes)
                         output.flush()
-                    } ?: error("无法打开目标文件")
+                    } ?: error("Unable to open destination file")
                     sessionStore.updateSession(sourceKey) { it.completeExport() }
                     showInstallDialog = true
                 } catch (e: Exception) {
                     sessionStore.updateSession(sourceKey) { it.cancelExport() }
-                    Toast.makeText(context, "导出失败：${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Export failed: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
 
-    // 加载配置文件
+    // 加载Configuration file
     LaunchedEffect(sourceKey) {
         val currentSession = sessionStore.currentSession(sourceKey) ?: return@LaunchedEffect
         if (currentSession.isInitialized || currentSession.loadError != null) return@LaunchedEffect
@@ -118,7 +118,7 @@ fun EditorScreen(
                             ?: shizukuOp.readConfig()
                         AccessMode.SAF -> safOp.readConfig()
                     }
-                } ?: error("未找到配置文件")
+                } ?: error("未找到Configuration file")
             }
             val parsedValues = ConfigParser.toParamValues(rawValues).associateBy { it.key }
             sessionStore.updateSession(sourceKey) {
@@ -133,7 +133,7 @@ fun EditorScreen(
             Log.d("GLGraphics", "EditorScreen: 解析到 ${parsedValues.size} 个画质参数")
         } catch (e: Exception) {
             sessionStore.updateSession(sourceKey) {
-                it.copyForEditor(loadError = "读取配置失败：${e.message}")
+                it.copyForEditor(loadError = "Failed to read configuration: ${e.message}")
             }
             Log.e("GLGraphics", "EditorScreen: 读取异常", e)
         }
@@ -189,14 +189,14 @@ fun EditorScreen(
                 }
                 Toast.makeText(
                     context,
-                    "保存成功！请重启游戏使设置生效",
+                    "Saved successfully! Restart the game to apply changes.",
                     Toast.LENGTH_LONG
                 ).show()
             } else {
-                Toast.makeText(context, "保存失败，请检查权限", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Save failed. Check permissions.", Toast.LENGTH_SHORT).show()
             }
         } catch (e: Exception) {
-            Toast.makeText(context, "保存失败：${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Save failed: ${e.message}", Toast.LENGTH_SHORT).show()
         } finally {
             isSaving = false
         }
@@ -209,7 +209,7 @@ fun EditorScreen(
                 val exportSession = sessionStore.currentSession(sourceKey)
                 val exportParamValues = exportSession?.paramValues
                 if (exportParamValues == null) {
-                    Toast.makeText(context, "导出状态已丢失，请重新导出", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Export session lost. Please export again.", Toast.LENGTH_LONG).show()
                     isSaving = false
                     return
                 }
@@ -222,7 +222,7 @@ fun EditorScreen(
                         if (pendingSession == null) {
                             Toast.makeText(
                                 context,
-                                "导出状态已丢失，请重新导出",
+                                "Export session lost. Please export again.",
                                 Toast.LENGTH_LONG
                             ).show()
                         } else {
@@ -232,7 +232,7 @@ fun EditorScreen(
                     onFailure = { error ->
                         Toast.makeText(
                             context,
-                            "导出内容校验失败：${error.message}",
+                            "Export validation failed: ${error.message}",
                             Toast.LENGTH_LONG
                         ).show()
                     }
@@ -259,17 +259,17 @@ fun EditorScreen(
         Column(modifier = Modifier.fillMaxSize()) {
             // 顶部栏
             TopAppBar(
-                title = { Text(if (bundledPreset != null) "制作画质文件" else "画质编辑") },
+                title = { Text(if (bundledPreset != null) "Create graphics file" else "Graphics editor") },
                 navigationIcon = {
                     IconButton(onClick = ::requestBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "返回"
+                            contentDescription = "Back"
                         )
                     }
                 },
                 actions = {
-                    // 恢复默认按钮
+                    // Restore defaults按钮
                     IconButton(
                         onClick = {
                             sessionStore.updateSession(sourceKey) { current ->
@@ -283,7 +283,7 @@ fun EditorScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Refresh,
-                            contentDescription = "恢复默认",
+                            contentDescription = "Restore defaults",
                             tint = TextSecondary
                         )
                     }
@@ -393,7 +393,7 @@ fun EditorScreen(
                                     )
                                     Spacer(modifier = Modifier.width(6.dp))
                                     Text(
-                                        text = "关于本工具",
+                                        text = "About本工具",
                                         color = TextSecondary,
                                         fontSize = 14.sp
                                     )
@@ -442,7 +442,7 @@ fun EditorScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = if (bundledPreset != null) "导出 preferences" else "保存设置",
+                            text = if (bundledPreset != null) "Export preferences" else "Save settings",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -455,16 +455,16 @@ fun EditorScreen(
     if (showDiscardDialog) {
         AlertDialog(
             onDismissRequest = { showDiscardDialog = false },
-            title = { Text("放弃未导出的修改？") },
-            text = { Text("返回后，本次尚未导出的修改会丢失。") },
+            title = { Text("Discard changes that have not been exported?") },
+            text = { Text("Back后，本次尚未导出的修改会丢失。") },
             confirmButton = {
                 TextButton(onClick = {
                     showDiscardDialog = false
                     onBack()
-                }) { Text("放弃") }
+                }) { Text("Discard") }
             },
             dismissButton = {
-                TextButton(onClick = { showDiscardDialog = false }) { Text("继续编辑") }
+                TextButton(onClick = { showDiscardDialog = false }) { Text("Continue editing") }
             }
         )
     }
@@ -472,16 +472,16 @@ fun EditorScreen(
     if (showInstallDialog) {
         AlertDialog(
             onDismissRequest = { showInstallDialog = false },
-            title = { Text("导出成功") },
+            title = { Text("Export successful") },
             text = {
                 Text(
-                    "请先关闭游戏并备份原文件，再将导出的 preferences 复制到：\n\n" +
+                    "Close the game and back up the original file, then copy the exported preferences to:\n\n" +
                         "Android/data/com.feralinteractive.gridlegends_android/" +
                         "files/feral_app_support/preferences"
                 )
             },
             confirmButton = {
-                TextButton(onClick = { showInstallDialog = false }) { Text("知道了") }
+                TextButton(onClick = { showInstallDialog = false }) { Text("Got it") }
             }
         )
     }
@@ -527,7 +527,7 @@ private fun PresetCard(
                 .padding(16.dp)
         ) {
             Text(
-                text = "画质预设",
+                text = "Graphics presets",
                 color = NeonCyan,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
@@ -590,7 +590,7 @@ private fun PresetCard(
                 shape = RoundedCornerShape(8.dp)
             ) {
                 Text(
-                    text = "应用预设",
+                    text = "Apply preset",
                     fontWeight = FontWeight.Bold
                 )
             }
