@@ -1,0 +1,28 @@
+name: Build English APK
+on:
+  push:
+    branches: [english-edition]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - name: Make Gradle executable
+        run: chmod +x gradlew
+      - name: Build signed debug APK
+        run: ./gradlew --no-daemon assembleDebug
+      - name: Name English APK
+        run: cp app/build/outputs/apk/debug/app-debug.apk GRID-Legends-Graphics-Tool-v1.4.0-English.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GRID-Legends-Graphics-Tool-v1.4.0-English
+          path: GRID-Legends-Graphics-Tool-v1.4.0-English.apk
+          retention-days: 30
