@@ -72,7 +72,7 @@ fun SectionCard(
                 )
                 if (modifiedCount > 0) {
                     Text(
-                        text = "已修改 $modifiedCount/$paramCount",
+                        text = "Modified $modifiedCount/$paramCount",
                         fontSize = 12.sp,
                         color = NeonCyan
                     )
