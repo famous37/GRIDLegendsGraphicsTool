@@ -100,14 +100,14 @@ fun EditorScreen(
     LaunchedEffect(sourceKey) {
         val currentSession = sessionStore.currentSession(sourceKey) ?: return@LaunchedEffect
         if (currentSession.isInitialized || currentSession.loadError != null) return@LaunchedEffect
-        Log.d("GLGraphics", "EditorScreen: 开始加载 ${source.logSummary()}")
+        Log.d("GLGraphics", "EditorScreen: Loading ${source.logSummary()}")
         try {
             val rawValues = when (val currentSource = source) {
                 is EditorSource.BundledPreset -> currentSource.preset.rawValues
                 is EditorSource.LiveConfig -> if (currentSource.configContent != null) {
                     Log.d(
                         "GLGraphics",
-                        "EditorScreen: 使用传入的 configContent (${currentSource.configContent.length} 字符)"
+                        "EditorScreen: Using supplied configContent (${currentSource.configContent.length} characters)"
                     )
                     ConfigParser.parse(currentSource.configContent.byteInputStream())
                 } else {
@@ -118,7 +118,7 @@ fun EditorScreen(
                             ?: shizukuOp.readConfig()
                         AccessMode.SAF -> safOp.readConfig()
                     }
-                } ?: error("未找到Configuration file")
+                } ?: error("Configuration file not found")
             }
             val parsedValues = ConfigParser.toParamValues(rawValues).associateBy { it.key }
             sessionStore.updateSession(sourceKey) {
@@ -130,12 +130,12 @@ fun EditorScreen(
                     lastExportedSnapshot = parsedValues.mapValues { it.value.value }
                 )
             }
-            Log.d("GLGraphics", "EditorScreen: 解析到 ${parsedValues.size} 个画质参数")
+            Log.d("GLGraphics", "EditorScreen: Parsed ${parsedValues.size} graphics parameters")
         } catch (e: Exception) {
             sessionStore.updateSession(sourceKey) {
                 it.copyForEditor(loadError = "Failed to read configuration: ${e.message}")
             }
-            Log.e("GLGraphics", "EditorScreen: 读取异常", e)
+            Log.e("GLGraphics", "EditorScreen: Read exception", e)
         }
     }
 
@@ -393,7 +393,7 @@ fun EditorScreen(
                                     )
                                     Spacer(modifier = Modifier.width(6.dp))
                                     Text(
-                                        text = "About本工具",
+                                        text = "About this tool",
                                         color = TextSecondary,
                                         fontSize = 14.sp
                                     )
@@ -456,7 +456,7 @@ fun EditorScreen(
         AlertDialog(
             onDismissRequest = { showDiscardDialog = false },
             title = { Text("Discard changes that have not been exported?") },
-            text = { Text("Back后，本次尚未导出的修改会丢失。") },
+            text = { Text("Going back will discard changes not yet exported.") },
             confirmButton = {
                 TextButton(onClick = {
                     showDiscardDialog = false
