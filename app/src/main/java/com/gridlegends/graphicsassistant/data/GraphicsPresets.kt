@@ -9,8 +9,8 @@ data class GraphicsPreset(
 object GraphicsPresets {
     val all: List<GraphicsPreset> = listOf(
         preset(
-            name = "超低配 120 帧",
-            description = "500p、120 帧、关闭观众和多数高负载效果。",
+            name = "Ultra Low · 120 FPS",
+            description = "500p, 120 FPS, spectators and most demanding effects disabled.",
             fps = "120",
             height = "500",
             minPercent = "30",
@@ -32,8 +32,8 @@ object GraphicsPresets {
             graphicsOptimisation = "50"
         ),
         preset(
-            name = "低配 720p 60 帧",
-            description = "720p、60 帧、关闭观众，适合低端设备。",
+            name = "Low · 720p · 60 FPS",
+            description = "720p, 60 FPS, spectators disabled; for lower-end devices.",
             fps = "60",
             height = "720",
             minPercent = "70",
@@ -55,8 +55,8 @@ object GraphicsPresets {
             graphicsOptimisation = "80"
         ),
         preset(
-            name = "平衡画质",
-            description = "838p、35 帧，中等动态分辨率和中等档位。",
+            name = "Balanced",
+            description = "838p, 35 FPS, moderate dynamic resolution and quality.",
             fps = "35",
             height = "838",
             minPercent = "75",
@@ -78,8 +78,8 @@ object GraphicsPresets {
             graphicsOptimisation = "100"
         ),
         preset(
-            name = "中配专属",
-            description = "828p、35 帧，打开观众，图形档位偏中。",
+            name = "Medium",
+            description = "828p, 35 FPS, spectators enabled, medium graphics.",
             fps = "35",
             height = "828",
             minPercent = "50",
@@ -101,8 +101,8 @@ object GraphicsPresets {
             graphicsOptimisation = "100"
         ),
         preset(
-            name = "高配专属",
-            description = "1080p、40 帧，高纹理、高反射档位。",
+            name = "High",
+            description = "1080p, 40 FPS, high texture and reflection quality.",
             fps = "40",
             height = "1080",
             minPercent = "50",
@@ -124,8 +124,8 @@ object GraphicsPresets {
             graphicsOptimisation = "100"
         ),
         preset(
-            name = "高配 1080p 120 帧",
-            description = "1080p、120 帧，Graphics 档位拉高并启用 SSR。",
+            name = "High · 1080p · 120 FPS",
+            description = "1080p, 120 FPS, high graphics quality with SSR enabled.",
             fps = "120",
             height = "1080",
             minPercent = "100",
@@ -147,8 +147,8 @@ object GraphicsPresets {
             graphicsOptimisation = "100"
         ),
         preset(
-            name = "超极限 4K 120 帧",
-            description = "2160p、120 帧，超高分辨率，不启用 HDR。",
+            name = "Extreme · 4K · 120 FPS",
+            description = "2160p, 120 FPS, ultra-high resolution without HDR.",
             fps = "120",
             height = "2160",
             minPercent = "100",
@@ -170,8 +170,8 @@ object GraphicsPresets {
             graphicsOptimisation = "100"
         ),
         preset(
-            name = "超越极限 4K 120 HDR",
-            description = "2160p、120 帧、HDR，最高负载，只建议高端设备使用。",
+            name = "Extreme · 4K · 120 FPS · HDR",
+            description = "2160p, 120 FPS, HDR; extremely demanding, for high-end devices only.",
             fps = "120",
             height = "2160",
             minPercent = "100",
