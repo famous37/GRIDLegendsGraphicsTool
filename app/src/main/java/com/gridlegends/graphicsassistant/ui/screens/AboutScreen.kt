@@ -110,7 +110,7 @@ fun AboutScreen(
                 InfoCard(title = "Main features", titleColor = NeonCyan) {
                     FeatureItem("Read and write settings", "Read the game's preferences file while preserving unmanaged values")
                     FeatureItem("Graphics presets", "Includes Low, Balanced, High, 4K, HDR, and other presets")
-                    FeatureItem("Offline export", "无需游戏目录权限，可从 20 份真实配置制作并Export preferences")
+                    FeatureItem("Offline export", "Create and export preferences from 20 bundled configurations without game-folder access")
                     FeatureItem("Fine tuning", "Adjust FPS, resolution, textures, shadows, reflections, post-processing, and more")
                     FeatureItem("Access methods", "Choose Root, Shizuku, or SAF depending on your device")
                     FeatureItem("Automatic backup", "Direct editing creates a preferences_backup_* file before saving")
