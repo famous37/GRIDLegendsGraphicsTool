@@ -41,12 +41,12 @@ fun AboutScreen(
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             TopAppBar(
-                title = { Text("关于") },
+                title = { Text("About") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "返回"
+                            contentDescription = "Back"
                         )
                     }
                 },
@@ -84,7 +84,7 @@ fun AboutScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "GRID Legends 画质助手",
+                    text = "GRID Legends Graphics Tool",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
                     color = NeonCyan
@@ -99,7 +99,7 @@ fun AboutScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "用于制作、导出和直接修改 GRID Legends 安卓版画质配置",
+                    text = "Create, export, and edit GRID Legends graphics settings on Android",
                     fontSize = 14.sp,
                     color = TextSecondary,
                     textAlign = TextAlign.Center
@@ -107,18 +107,18 @@ fun AboutScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                InfoCard(title = "主要功能", titleColor = NeonCyan) {
-                    FeatureItem("配置读写", "读取游戏 preferences 文件，并尽量保留未管理的原始字段")
-                    FeatureItem("画质预设", "内置低配、平衡、高配、4K、HDR 等多组预设")
-                    FeatureItem("离线导出", "无需游戏目录权限，可从 20 份真实配置制作并导出 preferences")
-                    FeatureItem("精细调整", "支持帧率、分辨率、纹理、阴影、反射、后处理等参数")
-                    FeatureItem("访问方式", "支持 Root、Shizuku 和 SAF，按设备权限情况选择")
-                    FeatureItem("自动备份", "直接编辑流程保存前会创建 preferences_backup_* 备份文件")
+                InfoCard(title = "Main features", titleColor = NeonCyan) {
+                    FeatureItem("Read and write settings", "Read the game's preferences file while preserving unmanaged values")
+                    FeatureItem("Graphics presets", "Includes Low, Balanced, High, 4K, HDR, and other presets")
+                    FeatureItem("Offline export", "无需游戏目录权限，可从 20 份真实配置制作并Export preferences")
+                    FeatureItem("Fine tuning", "Adjust FPS, resolution, textures, shadows, reflections, post-processing, and more")
+                    FeatureItem("Access methods", "Choose Root, Shizuku, or SAF depending on your device")
+                    FeatureItem("Automatic backup", "Direct editing creates a preferences_backup_* file before saving")
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                InfoCard(title = "项目链接", titleColor = NeonCyan) {
+                InfoCard(title = "Project links", titleColor = NeonCyan) {
                     LinkItem(
                         icon = Icons.Default.Code,
                         title = "GitHub",
@@ -137,7 +137,7 @@ fun AboutScreen(
 
                     LinkItem(
                         icon = Icons.Default.Star,
-                        title = "项目仓库",
+                        title = "Project repository",
                         subtitle = "GRIDLegendsGraphicsTool",
                         onClick = {
                             context.startActivity(
@@ -156,8 +156,8 @@ fun AboutScreen(
 
                     LinkItem(
                         icon = Icons.Default.BugReport,
-                        title = "反馈问题",
-                        subtitle = "提交 Bug 或功能建议",
+                        title = "Report an issue",
+                        subtitle = "Report bugs or suggest features",
                         onClick = {
                             context.startActivity(
                                 Intent(
@@ -171,11 +171,11 @@ fun AboutScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                InfoCard(title = "免责声明", titleColor = AccentOrange) {
-                    NoticeItem("本工具是非官方开源项目，与 Codemasters、EA、Feral Interactive 无从属或授权关系。")
-                    NoticeItem("GRID Legends、Codemasters、EA、Feral Interactive 等名称和商标归其各自权利方所有。")
-                    NoticeItem("修改画质配置可能导致游戏卡顿、闪退或无法进入游戏，请根据设备性能谨慎选择预设。")
-                    NoticeItem("预设导出不会操作或备份游戏原文件，手动替换前请关闭游戏并自行备份。")
+                InfoCard(title = "Disclaimer", titleColor = AccentOrange) {
+                    NoticeItem("This unofficial open-source tool is not affiliated with or endorsed by Codemasters, EA, or Feral Interactive.")
+                    NoticeItem("GRID Legends, Codemasters, EA, Feral Interactive, and related trademarks belong to their respective owners.")
+                    NoticeItem("Changing graphics settings may cause stuttering, crashes, or failure to launch. Choose presets suitable for your device.")
+                    NoticeItem("Exporting a preset does not modify or back up the original game file. Close the game and make a backup before replacing it.")
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -186,7 +186,7 @@ fun AboutScreen(
                     color = TextDisabled
                 )
                 Text(
-                    text = "非官方工具，仅用于个人配置管理和学习交流",
+                    text = "Unofficial tool for personal configuration management and educational use",
                     fontSize = 11.sp,
                     color = TextDisabled,
                     textAlign = TextAlign.Center
